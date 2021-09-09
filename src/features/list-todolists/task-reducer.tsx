@@ -1,9 +1,9 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {taskAPI} from "../../api/api";
-import {TaskPriorities, TaskStatuses, TaskType} from "../../api/type-api";
+import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "../../api/type-api";
+import {asyncActions as asyncActionsTL} from "./todolist-reducer";
 
 // что возвращает(если ничего, то undefinded), что принимает в параметрах(типа проспсов), что возвращает если ошибка
-
 const getTasksTC = createAsyncThunk<{ task: TaskType[], todolistId: string } | any, { todolistId: string }, any>("task/getTask",
     async (param, thunkAPI) => {
         try {
@@ -95,6 +95,16 @@ export const slice = createSlice({
                 if (index > -1) {
                     tasks.splice(index, 1)
                 }
+            })
+            .addCase(asyncActionsTL.getTodolistTC.fulfilled, (state, action) => {
+                let todolists = action.payload.todolists
+                todolists.forEach((tl: TodolistType) => state[tl.id] = [])
+            })
+            .addCase(asyncActionsTL.addTodolistTC.fulfilled, (state, action) => {
+                state[action.payload.todolist.id] = []
+            })
+            .addCase(asyncActionsTL.deleteTodolistTC.fulfilled, (state, action) => {
+                delete state[action.payload.todolistId]
             })
     }
 })
