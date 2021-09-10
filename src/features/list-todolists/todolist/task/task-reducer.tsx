@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {taskAPI} from "../../api/api";
-import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "../../api/type-api";
-import {asyncActions as asyncActionsTL} from "./todolist-reducer";
+import {taskAPI} from "../../../../api/api";
+import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "../../../../api/type-api";
+import {asyncActions as asyncActionsTL} from "../todolist-reducer";
 
 // что возвращает(если ничего, то undefinded), что принимает в параметрах(типа проспсов), что возвращает если ошибка
 const getTasksTC = createAsyncThunk<{ task: TaskType[], todolistId: string } | any, { todolistId: string }, any>("task/getTask",

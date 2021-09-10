@@ -1,4 +1,4 @@
-
+import {Login} from "./Login";
 import {slice, asyncActions as thunks} from "./authorization-reducer";
 
 // все экшены и санки
@@ -11,5 +11,6 @@ const authorizationReducer= slice.reducer
 
 export {
     authorizationReducer,
-    authorizationActions
+    authorizationActions,
+    Login
 }

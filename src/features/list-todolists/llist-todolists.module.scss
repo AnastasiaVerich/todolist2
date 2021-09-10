@@ -1,0 +1,24 @@
+
+.todolistListBlock {
+    margin-top: 50px;
+    width: 80%;
+    height: 90%;
+    background-color: rgba(240, 248, 255, 0.44);
+    display: flex;
+    flex-direction: column;
+
+    .topPathContainer {
+        width: 100%;
+        height: 20%;
+        display: flex;
+        justify-content: flex-start;
+        border-bottom: 2px solid;
+
+
+    }
+    .todolistListBox {
+    }
+
+}
+
+

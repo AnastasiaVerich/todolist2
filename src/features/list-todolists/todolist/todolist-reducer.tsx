@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {todolistAPI} from "../../api/api";
-import {TodolistType} from "../../api/type-api";
+import {todolistAPI} from "../../../api/api";
+import {TodolistType} from "../../../api/type-api";
 
 const getTodolistTC = createAsyncThunk<{ todolists: TodolistType[] } | any, any, any>("todolist/getTodolist",
     async (param, thunkAPI) => {

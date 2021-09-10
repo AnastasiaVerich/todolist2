@@ -1,7 +1,14 @@
 import React from 'react';
-import s from './App.module.scss';
+import {ListTodolists} from "../features/list-todolists/list-todolists";
+import s from "./App.module.scss";
+import {AddItemForm} from "../components/add-item-form/add-item-form";
+import {authorizationActions, Login} from "../features/authorization";
+import {Route, Switch} from "react-router-dom";
+import {useAction} from "../utils/redux-utils";
 
 function App() {
+    const{logoutTC}=authorizationActions
+
 
     return (
         <div className={s.block}>
@@ -11,40 +18,18 @@ function App() {
                         <img src={""}/>
                         <h2>AppName</h2>
                     </div>
-                    <div className={s.loginBtn}>LogOut</div>
+                    <div className={s.loginBtn} onClick={useAction(logoutTC)}>LogOut</div>
                 </div>
             </div>
-            <div className={s.todolistListBlock}>
-                <div className={s.addTodolistFormBox}>{/*size in %*/}
-                    <div className={s.formBox}>
-                        <input/>
-                        <div className={s.addItemBtn}>addIcon</div>
-                    </div>
-                </div>
-                <div className={s.todolistListBox}>
-                    <div className={s.todolist}>
-                        <h2>Title Todolist</h2>
-                        <div className={s.formBox}>{/*-/-*/}
-                            <input/>
-                            <div className={s.addItemBtn}>addIcon</div>
-                        </div>
-                        <div className={s.taskList}>
-                            <div className={s.task}>
-                                <input type={"checkbox"}/>
-                                <h3>Task1</h3>
-                                <div className={s.deleteBtn}>iconDel</div>
-                            </div>
-                        </div>
-                        <div className={s.filterBtnBox}>
-                            <div className={s.filterBtn}>all</div>
-                            <div className={s.filterBtn}>complited</div>
-                            <div className={s.filterBtn}>active</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Switch>
+                <Route exact path={'/'} render={()=> <ListTodolists/>}/>
+                <Route path={'/login'} render={()=><Login/>}/>
+                <Route  path={'*'} render={()=> <ListTodolists/>}/>
+            </Switch>
+
         </div>
     );
 }
+
 
 export default App;

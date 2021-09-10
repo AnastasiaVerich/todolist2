@@ -1,0 +1,22 @@
+
+      .formBox {
+        width: 300px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        input {
+          width: 75%;
+          height: 30px;
+          border-radius: 15px;
+          margin-right: 20px;
+        }
+
+        .addItemBtn {
+          background-color: burlywood;
+          &:hover{
+            cursor: pointer;
+          }
+        }
+      }
+

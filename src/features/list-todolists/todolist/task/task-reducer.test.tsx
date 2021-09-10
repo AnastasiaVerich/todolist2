@@ -1,5 +1,5 @@
-import {taskActions, taskReducer} from "./index";
-import {TaskPriorities, TaskStatuses, TaskType} from "../../api/type-api";
+import {taskActions, taskReducer} from "../index";
+import {TaskPriorities, TaskStatuses, TaskType} from "../../../../api/type-api";
 import {TasksStateType} from "./task-reducer";
 
 

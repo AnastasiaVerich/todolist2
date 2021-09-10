@@ -1,4 +1,4 @@
-import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "../../api/type-api";
+import {TaskPriorities, TaskStatuses, TaskType, TodolistType} from "../../../api/type-api";
 import {taskReducer, todolistActions, todolistReducer} from "./index";
 
 const reducer =todolistReducer
