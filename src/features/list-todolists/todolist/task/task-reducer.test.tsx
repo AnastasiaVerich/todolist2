@@ -1,10 +1,10 @@
-import {taskActions, taskReducer} from "../index";
 import {TaskPriorities, TaskStatuses, TaskType} from "../../../../api/type-api";
 import {TasksStateType} from "./task-reducer";
+import {taskActions, taskReducer} from "./index";
 
 
 const reducer = taskReducer
-const {updateTaskTC, deleteTaskTC, getTasksTC, addTaskTC} = taskActions
+const {updateTaskTC, deleteTaskTC, getTasksTC} = taskActions
 
 let startState: TasksStateType
 

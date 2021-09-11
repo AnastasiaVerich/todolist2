@@ -1,22 +1,33 @@
 import s from "./todolist.module.scss";
-import React from "react";
+import React, {useCallback, useEffect} from "react";
 import {AddItemForm} from "../../../components/add-item-form/add-item-form";
-import {Task} from "./task";
-import {useSelector} from "react-redux";
-import {selectIsLoggedIn} from "../../authorization/selector";
-import {Redirect} from "react-router-dom";
-import {authorizationActions} from "../../authorization";
+import {TaskType, TodolistType} from "../../../api/type-api";
+import {useAction} from "../../../utils/redux-utils";
+import {taskActions} from "./task/task-reducer";
+import {Task} from "./task/task";
 
-export const Todolist = () => {
+type OneTodolistType = {
+    tasks: TaskType[]
+    todolist: TodolistType
+}
 
+export const Todolist = React.memo((props: OneTodolistType) => {
+    const {getTasksTC,addTaskTC} = useAction(taskActions)
+    
+    useEffect(() => {
+        getTasksTC({todolistId: props.todolist.id})
+    }, [])
+    const addNewTodolist = useCallback((e: any) => {
+        addTaskTC({todolistId:props.todolist.id ,title:e})
+    }, [])
     return (
         <div className={s.todolist}>
-            <h2>Title Todolist</h2>
-            <AddItemForm/>
+            <h2>{props.todolist.title}</h2>
+            <AddItemForm onClick={addNewTodolist}/>
             <div className={s.taskList}>
-                <Task/>
-                <Task/>
-                <Task/>
+                {props.tasks.map((task: TaskType) => {
+                    return <Task task={task}/>
+                })}
             </div>
             <div className={s.filterBtnBox}>
                 <div className={s.filterBtn}>all</div>
@@ -26,4 +37,4 @@ export const Todolist = () => {
         </div>
 
     )
-}
+})

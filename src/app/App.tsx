@@ -1,13 +1,21 @@
-import React from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {ListTodolists} from "../features/list-todolists/list-todolists";
 import s from "./App.module.scss";
-import {AddItemForm} from "../components/add-item-form/add-item-form";
-import {authorizationActions, Login} from "../features/authorization";
 import {Route, Switch} from "react-router-dom";
 import {useAction} from "../utils/redux-utils";
+import {Login} from "../features/authorization/Login";
+import {authorizationActions} from "../features/authorization/authorization-reducer";
+import {applicationActions} from "../features/application/application-reducer";
 
 function App() {
-    const{logoutTC}=authorizationActions
+    const{logoutTC}=useAction(authorizationActions)
+    const{initializedTC}=useAction(applicationActions)
+    useEffect(() => {
+        initializedTC({})
+    }, [])
+    const logoutHandler = useCallback(() => {
+        logoutTC({})
+    }, [])
 
 
     return (
@@ -18,7 +26,7 @@ function App() {
                         <img src={""}/>
                         <h2>AppName</h2>
                     </div>
-                    <div className={s.loginBtn} onClick={useAction(logoutTC)}>LogOut</div>
+                    <div className={s.loginBtn} onClick={logoutHandler}>LogOut</div>
                 </div>
             </div>
             <Switch>

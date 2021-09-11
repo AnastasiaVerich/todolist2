@@ -1,25 +1,48 @@
-import React from 'react';
+import React, {useCallback, useEffect} from 'react';
 import s from './llist-todolists.module.scss'
-import {Todolist} from "./todolist";
 import {AddItemForm} from "../../components/add-item-form/add-item-form";
 import {useSelector} from "react-redux";
 import {selectIsLoggedIn} from "../authorization/selector";
-import {authorizationActions} from "../authorization";
 import {Redirect} from "react-router-dom";
+import {useAction} from "../../utils/redux-utils";
+import {AppRootStateType} from "../../app/store";
+import {TodolistType} from "../../api/type-api";
+import {TasksStateType} from "./todolist/task/task-reducer";
+import {todolistActions} from "./todolist/todolist-reducer";
+import {Todolist} from "./todolist/todolist";
 
-export const ListTodolists = () => {
+
+export const ListTodolists = React.memo(() => {
+    const todolists = useSelector<AppRootStateType, TodolistType[]>(state => state.todolist)
+    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.task)
+    const {getTodolistTC, addTodolistTC} = useAction(todolistActions);
+    useEffect(() => {
+        getTodolistTC({});
+    }, [])
+
+    const addNewTodolist = useCallback((e: any) => {
+        addTodolistTC({title:e})
+    }, [])
+
     const isLoggedIn = useSelector(selectIsLoggedIn)
-    if (!isLoggedIn){
+    if (!isLoggedIn) {
         return <Redirect to={'/login'}/>
     }
     return (
         <div className={s.todolistListBlock}>
             <div className={s.topPathContainer}>{/*size in %*/}
-                <AddItemForm/>
+                <AddItemForm onClick={addNewTodolist}/>
             </div>
             <div className={s.todolistListBox}>
-                <Todolist/>
+                {todolists.length!==undefined
+                    ? todolists.map((tl: TodolistType) => {
+                        let todolistTask = tasks[tl.id]
+                        return <Todolist tasks={todolistTask}
+                                         todolist={tl}/>
+                    })
+                    : <></>
+                }
             </div>
         </div>
     );
-}
+})

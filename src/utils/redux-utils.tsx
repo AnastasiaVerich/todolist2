@@ -1,14 +1,14 @@
 import {AppDispatchType} from "../app/store";
 import {useDispatch} from "react-redux";
 import {useMemo} from "react";
-import {bindActionCreators} from "redux";
+import {ActionCreatorsMapObject, bindActionCreators} from "redux";
 
 //bindActionCreators получает на вход объект с AC, либо функцию
 // и возвращает объект с AC, обернутыми в вызов dispatch
 // или в случае с функцией функцию обернутую в dispatch.
 export const useAppDispatch =()=>useDispatch<AppDispatchType>()
 
-export function useAction(actions: any){
+export function useAction<T extends ActionCreatorsMapObject<any>>(actions: T){
     const dispatch=useAppDispatch()
     return useMemo(()=>{
         return bindActionCreators(actions,dispatch)

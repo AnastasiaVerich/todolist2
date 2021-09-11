@@ -1,10 +1,10 @@
 import {combineReducers} from "redux";
-import {applicationReducer} from "../features/application";
-import {authorizationReducer} from "../features/authorization";
-import { todolistReducer} from "../features/list-todolists/todolist";
 import {configureStore} from "@reduxjs/toolkit";
 import thunkMiddleware from 'redux-thunk'
-import {taskReducer} from "../features/list-todolists/todolist/task";
+import {applicationReducer} from "../features/application/application-reducer";
+import {authorizationReducer} from "../features/authorization/authorization-reducer";
+import {todolistReducer} from "../features/list-todolists/todolist/todolist-reducer";
+import {taskReducer} from "../features/list-todolists/todolist/task/task-reducer";
 
 
 // объединяя reducer-ы с помощью combineReducers,
@@ -28,3 +28,5 @@ export type RootReducerType = typeof reducers
 // определить автоматически тип всего объекта состояния
 export type AppRootStateType = ReturnType<RootReducerType>
 export type AppDispatchType = typeof  store.dispatch
+// @ts-ignore
+window.store = store

@@ -35,7 +35,7 @@ const logoutTC = createAsyncThunk<any,any, any>('authorization/logout',
         }
     })
 
-export const asyncActions={
+export const authorizationActions={
     loginTC,
     logoutTC
 }
@@ -54,3 +54,10 @@ export const slice = createSlice({
             })
     }
 })
+
+// export const authorizationActions={
+//     ...slice.actions,//экшены
+//     ...asyncActions//санки
+// }
+export const authorizationReducer= slice.reducer
+//наш редюсер, нужен только в сторе и декораторе, если юзаем сторибук

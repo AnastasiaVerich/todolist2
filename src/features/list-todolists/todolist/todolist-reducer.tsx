@@ -38,7 +38,7 @@ const deleteTodolistTC = createAsyncThunk<{ todolistId: string } | any, {todolis
             return alert(e)
         }
     })
-export const asyncActions={
+ export const todolistActions={
    getTodolistTC,
    addTodolistTC,
    updateTodolistTC,
@@ -46,6 +46,7 @@ export const asyncActions={
 }
 
 export const slice = createSlice({
+
     name: "todolist",
     initialState: {} as TodolistType[],
     reducers: {},
@@ -69,3 +70,9 @@ export const slice = createSlice({
             })
     }
 })
+
+// export const todolistActions={
+//     ...slice.actions,
+//     ...asyncActions
+// }
+export const todolistReducer=slice.reducer

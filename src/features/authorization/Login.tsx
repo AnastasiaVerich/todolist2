@@ -1,16 +1,17 @@
 import React from 'react';
 import s from './Login.module.scss'
 import {useFormik} from "formik";
-import {authorizationActions} from "./index";
-import {useAppDispatch} from "../../utils/redux-utils";
+import {useAction, useAppDispatch} from "../../utils/redux-utils";
 import {selectIsLoggedIn} from "./selector";
 import {useSelector} from "react-redux";
 import {Redirect} from "react-router-dom";
+import { authorizationActions} from "./authorization-reducer";
 
 export const Login=()=> {
-    const isLoggedIn=useSelector(selectIsLoggedIn)
     const dispatch=useAppDispatch()
-    const {loginTC}= authorizationActions
+    const {loginTC}= useAction(authorizationActions)
+    const isLoggedIn=useSelector(selectIsLoggedIn)
+
     const formik = useFormik({
       initialValues: {
           email:"",
@@ -19,10 +20,12 @@ export const Login=()=> {
           captcha:false
       },
       onSubmit: async (values, formikHelpers)=>{
-        await dispatch(loginTC(values));
+          await loginTC(values);
+
       }
     })
-    console.log(isLoggedIn)
+
+
     if(isLoggedIn){
         return <Redirect to={'/'}/>
     }

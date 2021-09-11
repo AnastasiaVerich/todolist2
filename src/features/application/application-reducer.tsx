@@ -15,7 +15,7 @@ const initializedTC = createAsyncThunk<any, any, any>("application/initialized",
             return alert(err)
         }
     })
-export const asyncActions={
+ export const applicationActions={
     initializedTC
 }
 
@@ -31,3 +31,9 @@ export const slice = createSlice({
 
     }
 })
+/*export const applicationActions={
+    ...slice.actions,//экшены
+    ...asyncActions
+}*/
+export const applicationReducer=slice.reducer
+//наш редюсер, нужен только в сторе, тестах и еще декораторе, если юзаем сторибук
