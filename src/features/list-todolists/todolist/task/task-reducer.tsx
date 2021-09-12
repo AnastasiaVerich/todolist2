@@ -25,13 +25,15 @@ const addTaskTC = createAsyncThunk<{ title: string, todolistId: string } | any, 
     })
 const updateTaskTC = createAsyncThunk<{ title: string, todolistId: string } | any, { taskId: string, todolistId: string, data: UpdateDomainTaskModelType }, any>("task/updateTask",
     async (param, thunkAPI) => {
+
 /// берем наш стейт, который с типом initialСтейта.
         const state = thunkAPI.getState() as any
 //ищем в нем нужную нам таску, если не находим ты выводим ошибку
-        const task = state.tasks[param.todolistId].find((t: any) => t.id === param.taskId)
+        const task = state.task[param.todolistId].find((t: any) => t.id === param.taskId)
         if (!task) {
             return thunkAPI.rejectWithValue('task not found in the state')
         }
+
 //далее в апиМодель копируем все свойства найденной таски. Это делается потому,
 // что мы должны в запросе обязательно по условию документации в запросе put передать в дате все значения,
 // а не только измененное
@@ -47,7 +49,7 @@ const updateTaskTC = createAsyncThunk<{ title: string, todolistId: string } | an
         }
         //дальше как обычно
         try {
-            const res = await taskAPI.updateTask(param.taskId, param.todolistId, apiModel)
+            const res = await taskAPI.updateTask( param.todolistId,param.taskId, apiModel)
             return {todolistId: param.todolistId, taskId: param.taskId}
         } catch (err) {
             return alert(err)

@@ -10,9 +10,9 @@ import {applicationActions} from "../features/application/application-reducer";
 function App() {
     const{logoutTC}=useAction(authorizationActions)
     const{initializedTC}=useAction(applicationActions)
-    useEffect(() => {
-        initializedTC({})
-    }, [])
+    // useEffect(() => {
+    //     initializedTC({})
+    // }, [])
     const logoutHandler = useCallback(() => {
         logoutTC({})
     }, [])
