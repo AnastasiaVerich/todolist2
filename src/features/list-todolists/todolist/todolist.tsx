@@ -23,13 +23,13 @@ export const Todolist = React.memo((props: OneTodolistType) => {
     }, [])
     const addNewTask = useCallback((e: any) => {
         addTaskTC({todolistId: props.todolist.id, title: e})
-    }, [])
+    }, [ props.todolist.id])
     const deleteTodolist = useCallback(() => {
         deleteTodolistTC({todolistId: props.todolist.id})
-    }, [])
+    }, [ props.todolist.id])
     const updateTodolist = useCallback((title: string) => {
         updateTodolistTC({todolistId: props.todolist.id, title:title})
-    }, [])
+    }, [props.todolist.id])
     return (
         <div className={s.todolist}>
             <div className={s.header}>

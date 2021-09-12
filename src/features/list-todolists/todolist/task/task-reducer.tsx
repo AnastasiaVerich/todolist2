@@ -93,6 +93,8 @@ export const slice = createSlice({
             })
             .addCase(deleteTaskTC.fulfilled, (state, action) => {
                 let tasks = state[action.payload.todolistId]
+                console.log("delete")
+
                 let index = tasks.findIndex((x: TaskType) =>
                     x.id === action.payload.taskId)
                 if (index > -1) {

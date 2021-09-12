@@ -11,10 +11,11 @@ type OneTaskType = {
 }
 
 export const Task = React.memo((props: OneTaskType) => {
+
     const {deleteTaskTC, updateTaskTC} = useAction(taskActions)
-    const deleteTaskCB = useCallback(() => { // @ts-ignore
-        return deleteTaskTC({todolistId: props.todolist.id, taskId: props.task.id})
-    }, [])
+    const deleteTaskCB = useCallback(() => {
+         deleteTaskTC({todolistId: props.todolist.id, taskId: props.task.id})
+    }, [ props.todolist.id, props.task.id])
     const updateTask = useCallback((title:string) => {
         updateTaskTC({
             todolistId: props.todolist.id,
@@ -22,19 +23,19 @@ export const Task = React.memo((props: OneTaskType) => {
             taskId: props.task.id,
             data: {title: title}
         })
-    }, [])
-    const updateTaskStatus = useCallback((e: ChangeEvent<HTMLInputElement>) => { // @ts-ignore
+    }, [props.task.id, props.todolist.id])
+    const updateTaskStatus = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         updateTaskTC({
             todolistId: props.todolist.id,
-            // @ts-ignore
             taskId: props.task.id,
             data: {status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New}
         })
-    }, [])
+    }, [ props.todolist.id, props.task.id])
+    console.log(props.task.title, props.task.id)
 
 
     return (
-        <div className={s.task}>
+        <div key={props.task.id} className={s.task}>
             <input type={"checkbox"} checked={props.task.status === TaskStatuses.Completed} onChange={updateTaskStatus}/>
             <ChahgeInput title={props.task.title} onClick={updateTask}/>
             <div className={s.deleteBtn} onClick={deleteTaskCB}>iconDel</div>
