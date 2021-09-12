@@ -23,7 +23,7 @@ const addTaskTC = createAsyncThunk<{ title: string, todolistId: string } | any, 
             return alert(err)
         }
     })
-const updateTaskTC = createAsyncThunk<{ title: string, todolistId: string } | any, { taskId: string, todolistId: string, data: UpdateDomainTaskModelType }, any>("task/updateTask",
+const updateTaskTC = createAsyncThunk<{ title: string, todolistId: string, data: UpdateDomainTaskModelType  } | any, { taskId: string, todolistId: string, data: UpdateDomainTaskModelType }, any>("task/updateTask",
     async (param, thunkAPI) => {
 
 /// берем наш стейт, который с типом initialСтейта.
@@ -50,7 +50,7 @@ const updateTaskTC = createAsyncThunk<{ title: string, todolistId: string } | an
         //дальше как обычно
         try {
             const res = await taskAPI.updateTask( param.todolistId,param.taskId, apiModel)
-            return {todolistId: param.todolistId, taskId: param.taskId}
+            return {todolistId: param.todolistId, taskId: param.taskId, data:param.data}
         } catch (err) {
             return alert(err)
         }
