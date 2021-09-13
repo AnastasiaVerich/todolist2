@@ -8,26 +8,30 @@ import {useAction} from "../../utils/redux-utils";
 import {AppRootStateType} from "../../app/store";
 import {TodolistType} from "../../api/type-api";
 import {TasksStateType} from "./todolist/task/task-reducer";
-import {todolistActions} from "./todolist/todolist-reducer";
+import {todolistActions, TodolistTypeWithFilter} from "./todolist/todolist-reducer";
 import {Todolist} from "./todolist/todolist";
 
 
 export const ListTodolists = React.memo(() => {
-    const todolists = useSelector<AppRootStateType, TodolistType[]>(state => state.todolist)
+    const todolists = useSelector<AppRootStateType, TodolistTypeWithFilter[]>(state => state.todolist)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.task)
+    const isLoggedIn = useSelector(selectIsLoggedIn)
+
     const {getTodolistTC, addTodolistTC} = useAction(todolistActions);
-    useEffect(() => {
-        getTodolistTC({});
-    }, [])
 
     const addNewTodolist = useCallback((e: any) => {
         addTodolistTC({title:e})
     }, [])
 
-    const isLoggedIn = useSelector(selectIsLoggedIn)
+    useEffect(() => {
+        if(!isLoggedIn){return}
+        getTodolistTC({});
+    }, [])
+
     if (!isLoggedIn) {
         return <Redirect to={'/login'}/>
     }
+    console.log(isLoggedIn)
     return (
         <div className={s.todolistListBlock}>
             <div className={s.topPathContainer}>{/*size in %*/}
@@ -35,12 +39,12 @@ export const ListTodolists = React.memo(() => {
             </div>
             <div className={s.todolistListBox}>
                 {todolists.length!==undefined
-                    ? todolists.map((tl: TodolistType) => {
+                    ? todolists.map((tl: TodolistTypeWithFilter) => {
                         let todolistTask = tasks[tl.id]
                         return <Todolist tasks={todolistTask}
                                          todolist={tl}/>
                     })
-                    : <></>
+                    : <>No Tasks</>
                 }
             </div>
         </div>

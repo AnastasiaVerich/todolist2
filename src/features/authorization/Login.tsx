@@ -29,6 +29,7 @@ export const Login=()=> {
     if(isLoggedIn){
         return <Redirect to={'/'}/>
     }
+    console.log(isLoggedIn)
 
     return (
         <div className={s.block}>

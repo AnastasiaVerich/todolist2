@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {LoginDataType} from "../../api/type-api";
 import {authorizationAPI} from "../../api/api";
 
@@ -35,15 +35,16 @@ const logoutTC = createAsyncThunk<any,any, any>('authorization/logout',
         }
     })
 
-export const authorizationActions={
-    loginTC,
-    logoutTC
-}
+
 
 export const slice = createSlice({
     name: 'authorization',
     initialState: {isLoggedIn: false},
-    reducers: {},
+    reducers: {
+        setIsLoggedInAC(state, action : PayloadAction<{value: boolean}>){
+            state.isLoggedIn= action.payload.value
+        }
+    },
     extraReducers: builder => {
         builder
             .addCase(loginTC.fulfilled, (state => {
@@ -52,9 +53,14 @@ export const slice = createSlice({
             .addCase(logoutTC.fulfilled, state => {
                 state.isLoggedIn=false
             })
+
     }
 })
-
+export const authorizationActions={
+    loginTC,
+    logoutTC,
+    ...slice.actions
+}
 // export const authorizationActions={
 //     ...slice.actions,//экшены
 //     ...asyncActions//санки

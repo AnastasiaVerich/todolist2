@@ -101,10 +101,10 @@ export const slice = createSlice({
                     tasks.splice(index, 1)
                 }
             })
-            .addCase(todolistActions.getTodolistTC.fulfilled, (state, action) => {
+           /* .addCase(todolistActions.getTodolistTC.fulfilled, (state, action) => {
                 let todolists = action.payload.todolists
                 todolists.forEach((tl: TodolistType) => state[tl.id] = [])
-            })
+            })*/
             .addCase(todolistActions.addTodolistTC.fulfilled, (state, action) => {
                 state[action.payload.todolist.id] = []
             })

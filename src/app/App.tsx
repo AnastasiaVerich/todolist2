@@ -6,17 +6,20 @@ import {useAction} from "../utils/redux-utils";
 import {Login} from "../features/authorization/Login";
 import {authorizationActions} from "../features/authorization/authorization-reducer";
 import {applicationActions} from "../features/application/application-reducer";
+import {useSelector} from "react-redux";
+import {selectIsInitialized} from "../features/application/selector";
 
 function App() {
     const{logoutTC}=useAction(authorizationActions)
     const{initializedTC}=useAction(applicationActions)
-    // useEffect(() => {
-    //     initializedTC({})
-    // }, [])
+    const isInitialized=useSelector(selectIsInitialized)
+     useEffect(() => {
+         initializedTC({})
+     }, [])
     const logoutHandler = useCallback(() => {
         logoutTC({})
     }, [])
-
+if (!isInitialized){return <div>wait a few minut</div>}
 
     return (
         <div className={s.block}>
