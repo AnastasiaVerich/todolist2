@@ -25,7 +25,6 @@
         img {
           width: 40px;
           height: 40px;
-          background-color: black;
         }
 
         h2 {
@@ -36,7 +35,6 @@
       .loginBtn {
         display: flex;
         align-items: center;
-        background-color: burlywood;
         &:hover{
           cursor: pointer;
         }

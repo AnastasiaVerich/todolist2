@@ -6,7 +6,6 @@ import {selectIsLoggedIn} from "../authorization/selector";
 import {Redirect} from "react-router-dom";
 import {useAction} from "../../utils/redux-utils";
 import {AppRootStateType} from "../../app/store";
-import {TodolistType} from "../../api/type-api";
 import {TasksStateType} from "./todolist/task/task-reducer";
 import {todolistActions, TodolistTypeWithFilter} from "./todolist/todolist-reducer";
 import {Todolist} from "./todolist/todolist";

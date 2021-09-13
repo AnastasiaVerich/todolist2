@@ -1,12 +1,13 @@
 import s from "./todolist.module.scss";
 import React, {useCallback, useEffect} from "react";
 import {AddItemForm} from "../../../components/add-item-form/add-item-form";
-import {TaskStatuses, TaskType, TodolistType} from "../../../api/type-api";
+import {TaskStatuses, TaskType} from "../../../api/type-api";
 import {useAction} from "../../../utils/redux-utils";
 import {taskActions} from "./task/task-reducer";
 import {Task} from "./task/task";
 import {FilterType, todolistActions, TodolistTypeWithFilter} from "./todolist-reducer";
 import {ChahgeInput} from "../../../components/editable-span/editable-span";
+import {MdDelete} from "react-icons/all";
 
 type OneTodolistType = {
     tasks: TaskType[]
@@ -52,7 +53,7 @@ export const Todolist = React.memo((props: OneTodolistType) => {
         <div className={s.todolist}>
             <div className={s.header}>
                 <ChahgeInput title={props.todolist.title} onClick={updateTodolist}/>
-                <div className={s.deleteIconBTN} onClick={deleteTodolist}>delete Tl</div>
+                <div className={s.deleteIconBTN} onClick={deleteTodolist}><MdDelete/></div>
             </div>
             <AddItemForm onClick={addNewTask}/>
             <div className={s.taskList}>

@@ -4,6 +4,7 @@ import {TaskStatuses, TaskType, TodolistType} from "../../../../api/type-api";
 import {useAction} from "../../../../utils/redux-utils";
 import {taskActions} from "./task-reducer";
 import {ChahgeInput} from "../../../../components/editable-span/editable-span";
+import {MdDelete} from "react-icons/all";
 
 type OneTaskType = {
     task: TaskType
@@ -38,7 +39,7 @@ export const Task = React.memo((props: OneTaskType) => {
         <div key={props.task.id} className={s.task}>
             <input type={"checkbox"} checked={props.task.status === TaskStatuses.Completed} onChange={updateTaskStatus}/>
             <ChahgeInput title={props.task.title} onClick={updateTask}/>
-            <div className={s.deleteBtn} onClick={deleteTaskCB}>iconDel</div>
+            <div className={s.deleteBtn} onClick={deleteTaskCB}><MdDelete/></div>
         </div>
     )
 })

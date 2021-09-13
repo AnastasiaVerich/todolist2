@@ -8,36 +8,39 @@ import {authorizationActions} from "../features/authorization/authorization-redu
 import {applicationActions} from "../features/application/application-reducer";
 import {useSelector} from "react-redux";
 import {selectIsInitialized} from "../features/application/selector";
+import logo from "../logo.svg"
+import {FiLogOut} from "react-icons/all";
 
 function App() {
-    const{logoutTC}=useAction(authorizationActions)
-    const{initializedTC}=useAction(applicationActions)
-    const isInitialized=useSelector(selectIsInitialized)
-     useEffect(() => {
-         initializedTC({})
-     }, [])
+    const {logoutTC} = useAction(authorizationActions)
+    const {initializedTC} = useAction(applicationActions)
+    const isInitialized = useSelector(selectIsInitialized)
+    useEffect(() => {
+        initializedTC({})
+    }, [])
     const logoutHandler = useCallback(() => {
         logoutTC({})
     }, [])
-if (!isInitialized){return <div>wait a few minut</div>}
+    if (!isInitialized) {
+        return <div>wait a few minut</div>
+    }
 
     return (
         <div className={s.block}>
             <div className={s.headerBlock}>
                 <div className={s.mainContainer}>
                     <div className={s.appInfoBox}>
-                        <img src={""}/>
+                        <img src={logo}/>
                         <h2>AppName</h2>
                     </div>
-                    <div className={s.loginBtn} onClick={logoutHandler}>LogOut</div>
+                    <div className={s.loginBtn} onClick={logoutHandler}><FiLogOut/></div>
                 </div>
             </div>
             <Switch>
-                <Route exact path={'/'} render={()=> <ListTodolists/>}/>
-                <Route path={'/login'} render={()=><Login/>}/>
-                <Route  path={'*'} render={()=> <ListTodolists/>}/>
+                <Route exact path={'/'} render={() => <ListTodolists/>}/>
+                <Route path={'/login'} render={() => <Login/>}/>
+                <Route path={'*'} render={() => <ListTodolists/>}/>
             </Switch>
-
         </div>
     );
 }

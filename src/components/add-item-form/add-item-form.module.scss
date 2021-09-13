@@ -10,10 +10,12 @@
           height: 30px;
           border-radius: 15px;
           margin-right: 20px;
+          outline: none;
+          padding: 5px;
+
         }
 
         .addItemBtn {
-          background-color: burlywood;
           &:hover{
             cursor: pointer;
           }
