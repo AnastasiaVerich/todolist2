@@ -1,19 +1,26 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
+import s from "./editable-span.tsx.module.scss"
 
-type ChahgeInputType={
-    title:string
-    onClick:any
+type ChangeInputType = {
+    title: string
+    onClick: any
 }
 
-export const ChahgeInput=(props:ChahgeInputType)=>{
-    const [value, setValue]=useState(props.title)
-    const xxx = () => {
+export const ChahgeInput = (props: ChangeInputType) => {
+    const [value, setValue] = useState(props.title)
+    const [edit, setEdit] = useState(false)
+
+    const onBlur=()=>{
+        setEdit(false)
         props.onClick(value)
     }
-    return(
-        <>
-            <h2>{props.title}</h2>
-            <input   value={value}onChange={(e)=>setValue(e.currentTarget.value)} onBlur={xxx} />
+   const  onChange=(e: ChangeEvent<HTMLInputElement>)=>{
+        setValue(e.currentTarget.value)
+    }
+    return (
+        <>{!edit
+            ? <p className={s.title} onDoubleClick={()=>setEdit(true)}>{props.title}</p>
+            : <input className={s.titleEdit} autoFocus onBlur={onBlur} value={value} onChange={onChange} />}
         </>
     )
 }

@@ -1,0 +1,71 @@
+@import "./var";
+
+@mixin text($fF, $fS, $lH) {
+  font-family: $fF;
+  color: $textColor;
+  line-height: $lH;
+  font-size: $fS;
+  font-weight: 400;
+  margin: 0;
+}
+
+@mixin block() {
+  width: 100%;
+  height: 100vh;
+  background: url("https://oir.mobi/uploads/posts/2021-03/1616578387_45-p-svetlii-fon-dlya-saita-48.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@mixin container() {
+  box-shadow: 0 0 50px rgba(0, 0, 0 , 0.6);
+  background-color: #ffffff;
+  width: 70%;
+  height: 80%;
+  @media screen and (max-width: 992px) {
+    width: 100%;
+    height: 100%;
+  }
+}
+@mixin button($H, $W) {
+  @include text($secondTextStyle, 14px, 26px);
+  height: $H;
+  width: $W;
+  border: 1px solid transparent;
+  border-radius: 1.25rem;
+  background-color: $primaryColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+}
+
+@mixin scroll() {
+  padding-right: 10px;
+  overflow-y: hidden;
+
+  &:hover {
+    padding-right: 0;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      background-color: #f9f9fd;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: #18aaaa;
+    }
+
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      background-color: #f9f9fd;
+    }
+  }
+}
+

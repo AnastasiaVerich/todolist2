@@ -1,0 +1,16 @@
+@import '../../utils/sass/var';
+@import '../../utils/sass/mixins';
+
+.title {
+  @include text($mainTextStyle, 20px, 1.2);
+  width: 70%;
+}
+.titleEdit{
+  @include text($secondTextStyle, 18px, 1.2);
+  width: 70%;
+  outline: none;
+  border: none;
+  padding: 2px;
+  border-radius: 10px;
+}
+

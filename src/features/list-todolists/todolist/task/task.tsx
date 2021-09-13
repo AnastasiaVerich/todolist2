@@ -32,7 +32,6 @@ export const Task = React.memo((props: OneTaskType) => {
             data: {status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New}
         })
     }, [ props.todolist.id, props.task.id])
-    console.log(props.task.title, props.task.id)
 
 
     return (
